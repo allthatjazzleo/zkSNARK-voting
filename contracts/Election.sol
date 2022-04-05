@@ -45,8 +45,9 @@ contract Election{
 		return votesReceived[candidate];
 	}
 
-	function voteForCandidate(address _verifierAddr, uint candidate, IVerifier.Proof memory proof, uint[1] memory input) public {
-		bytes32 hash = keccak256(abi.encodePacked(proof.a.X, proof.a.Y, proof.b.X, proof.b.Y, proof.c.X, proof.c.Y, input));
+	function voteForCandidate(address _verifierAddr, uint candidate, IVerifier.Proof memory proof) public {
+		uint[1] memory input = [uint(1)];
+		bytes32 hash = keccak256(abi.encodePacked(proof.a.X, proof.a.Y, proof.b.X, proof.b.Y, proof.c.X, proof.c.Y));
 		require(voted[hash] == false);
 		require(verifierAddr[_verifierAddr] == true);
 		require(IVerifier(_verifierAddr).verifyTx(proof, input) == true);

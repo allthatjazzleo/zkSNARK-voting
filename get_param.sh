@@ -1,1 +1,1 @@
-cat proof.json | jq '[.proof.a, .proof.b, .proof.c],.inputs' 
+cat proof.json | jq -c '[.proof.a, .proof.b, .proof.c]' 

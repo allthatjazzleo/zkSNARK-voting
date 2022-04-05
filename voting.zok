@@ -1,0 +1,16 @@
+import "hashes/sha256/512bitPacked" as sha256packed
+
+def main(private field a, private field b, private field c, private field d) -> field:
+    field[2] voter1_hash = [263561599766550617289250058199814760685,65303172752238645975888084098459749904]
+    field[2] voter2_hash = [13915123012433926267733493867113104145,30536990194775073522669055023050315097]
+    field[2] voter3_hash = [194903770879358774413837091469401665331,89883009739339161863943853247370295457]
+    //.... and so on if any
+    field[3][2] voter_hash = [voter1_hash, voter2_hash, voter3_hash]
+
+    field[2] h = sha256packed([a, b, c, d])
+
+    field y = 0
+    for u32 i in 0..3 do
+        y = if h[0] == voter_hash[i][0] && h[1] == voter_hash[i][1] then 1 else y fi
+    endfor
+    return y
