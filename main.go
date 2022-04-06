@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/sha256"
-	"encoding/hex"
 	"log"
 	"math/big"
 
@@ -33,11 +32,10 @@ func main() {
 
 	// // generate hash
 	hash := sha256.Sum256(input)
-	hex_hash := hex.EncodeToString(hash[:])
 	output1 := new(big.Int)
 	output2 := new(big.Int)
-	output1.SetString(hex_hash[:32], 16)
-	output2.SetString(hex_hash[32:], 16)
+	output1.SetBytes(hash[:16])
+	output2.SetBytes(hash[16:])
 
 	log.Printf("output1: %v", output1)
 	log.Printf("output2: %v", output2)
